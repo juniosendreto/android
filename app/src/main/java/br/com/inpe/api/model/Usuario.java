@@ -5,25 +5,27 @@ package br.com.inpe.api.model;
  */
 public class Usuario extends BaseModel{
 
-    private static final String COL_LOGIN = "LOGIN";
+    public static final String COL_LOGIN = "LOGIN";
 
-    private static final String COL_PASSWORD = "PASSWORD";
+    public static final String COL_PASSWORD = "PASSWORD";
 
-    private static final String COL_NOME = "NOME";
+    public static final String COL_NOME = "NOME";
 
-    private static final String COL_EMAIL = "EMAIL";
+    public static final String COL_EMAIL = "EMAIL";
 
-    private static final String COL_MUNICIPIO = "MUNICIPIO";
+    public static final String COL_MUNICIPIO = "MUNICIPIO";
 
-    private static final String COL_ENDERECO = "ENDERECO";
+    public static final String COL_ENDERECO = "ENDERECO";
 
-    private static final String COL_TELEFONE = "TELEFONE";
+    public static final String COL_TELEFONE = "TELEFONE";
 
-    private static final String COL_CELULAR = "CELULAR";
+    public static final String COL_CELULAR = "CELULAR";
 
-    private static final String COL_NIVEL = "NIVEL";
+    public static final String COL_NIVEL = "NIVEL";
 
-    private static final String TABLE_NAME = "USUARIO";
+    public static final String TABLE_NAME = "USUARIO";
+
+    public static final String  DATABASE_NAME = "project_db.db";
 
     protected String login;
 
@@ -41,7 +43,7 @@ public class Usuario extends BaseModel{
 
     protected String celular;
 
-    protected  String nivel;
+    protected  Integer nivel;
 
     /*
         - Criar Resttrições "Senha", Email, telefone e celular.
@@ -111,16 +113,16 @@ public class Usuario extends BaseModel{
         this.celular = celular;
     }
 
-    public String getNivel() {
+    public Integer getNivel() {
         return nivel;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 
     public Usuario(Long id, String password, String login, String nome, String email, String municipio,
-                   String endereco, String telefone, String celular, String nivel) {
+                   String endereco, String telefone, String celular, Integer nivel) {
         this.id = id;
         this.password = password;
         this.login = login;
