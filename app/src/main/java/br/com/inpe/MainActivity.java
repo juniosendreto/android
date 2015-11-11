@@ -9,23 +9,24 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.inpe.api.model.Usuario;
+import br.com.inpe.core.dao.UsuarioDaoImpl;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        Usuario usuario = new Usuario(10L, "aa", "aa", "aa", "aa", "aa", "aa", "aa", "aa", 1);
+
+        UsuarioDaoImpl usua = new UsuarioDaoImpl(this);
+
+        usua.save(usuario);
+
+
     }
 
     @Override
