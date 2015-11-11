@@ -20,13 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Usuario usuario = new Usuario(10L, "aa", "aa", "aa", "aa", "aa", "aa", "aa", "aa", 1);
-
-        UsuarioDaoImpl usua = new UsuarioDaoImpl(this);
-
-        usua.save(usuario);
-
-
     }
 
     @Override
