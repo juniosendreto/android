@@ -25,7 +25,7 @@ public class Usuario extends BaseModel{
 
     public static final String TABLE_NAME = "USUARIO";
 
-    public static final String  DATABASE_NAME = "project_db.db";
+    public static final String  DATABASE_NAME = "project_db";
 
     protected String login;
 

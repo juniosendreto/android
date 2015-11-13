@@ -19,6 +19,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Usuario usuario = new Usuario(50L, "junio", "junio", "junio", "s","s","s","s","s", 1);
+
+        Usuario u;
+
+        UsuarioDaoImpl t =  new UsuarioDaoImpl(this);
+
+        u = t.findByIdLoginAndPassword("junio", "junio");
+
+        System.out.println(u.getLogin());
+        System.out.println(u.getPassword());
+        System.out.println(u.getId());
+
+
 
     }
 

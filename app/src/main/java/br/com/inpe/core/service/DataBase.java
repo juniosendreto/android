@@ -41,7 +41,6 @@ public class DataBase extends SQLiteOpenHelper{
          */
         try {
 
-
             String CREATE_USUARIO_TABLE = "CREATE TABLE " + Usuario.TABLE_NAME + "(" + Usuario.COL_ID +
                     " INTEGER PRIMARY KEY, " + Usuario.COL_NOME + " TEXT NOT NULL, " + Usuario.COL_LOGIN +
                     " TEXT NOT NULL," + Usuario.COL_PASSWORD + " TEXT NOT NULL, " + Usuario.COL_EMAIL +
@@ -53,6 +52,7 @@ public class DataBase extends SQLiteOpenHelper{
             db.execSQL(CREATE_USUARIO_TABLE);
         }catch (Exception e){
             System.out.println(e.getMessage());
+
         }
 
     }

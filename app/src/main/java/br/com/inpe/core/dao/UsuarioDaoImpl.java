@@ -18,6 +18,10 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     private SQLiteDatabase db;
     private DataBase banco;
+    private Cursor cursor;
+    private ContentValues values;
+    private Usuario usuario;
+
 
     public UsuarioDaoImpl(Context context){
 
@@ -31,29 +35,57 @@ public class UsuarioDaoImpl implements UsuarioDao{
             db = banco.getWritableDatabase();
 
             ContentValues values =  new ContentValues();
-            values.put(Usuario.COL_ID, usuario.getId());
-            values.put(Usuario.COL_LOGIN, usuario.getLogin());
-            values.put(Usuario.COL_PASSWORD, usuario.getPassword());
-            values.put(Usuario.COL_NOME, usuario.getNome());
-            values.put(Usuario.COL_EMAIL, usuario.getEmail());
-            values.put(Usuario.COL_MUNICIPIO, usuario.getMunicipio());
-            values.put(Usuario.COL_ENDERECO, usuario.getEndereco());
-            values.put(Usuario.COL_TELEFONE, usuario.getTelefone());
-            values.put(Usuario.COL_CELULAR, usuario.getCelular());
-            values.put(Usuario.COL_NIVEL, usuario.getNivel());
+            values.put(usuario.COL_ID, usuario.getId());
+            values.put(usuario.COL_LOGIN, usuario.getLogin());
+            values.put(usuario.COL_PASSWORD, usuario.getPassword());
+            values.put(usuario.COL_NOME, usuario.getNome());
+            values.put(usuario.COL_EMAIL, usuario.getEmail());
+            values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
+            values.put(usuario.COL_ENDERECO, usuario.getEndereco());
+            values.put(usuario.COL_TELEFONE, usuario.getTelefone());
+            values.put(usuario.COL_CELULAR, usuario.getCelular());
+            values.put(usuario.COL_NIVEL, usuario.getNivel());
 
             db.insert(Usuario.TABLE_NAME, null, values);
 
-            return this.findById(usuario.getId());
+            db.close();
 
+            //return this.findById(usuario.getId());
+            return usuario;
         }catch (Exception e){
             System.out.println(e.getMessage());
+
             return null;
         }
     }
 
     @Override
     public Usuario upgrade(Usuario usuario) {
+
+        try{
+            db = banco.getReadableDatabase();
+            if(db != null) {
+
+                values = new ContentValues();
+
+                //values.put(Usuario.COL_ID, usuario.getId());
+                //values.put(Usuario.COL_LOGIN, usuario.getLogin());
+                values.put(usuario.COL_PASSWORD, usuario.getPassword());
+                // values.put(Usuario.COL_NOME, usuario.getNome());
+                values.put(usuario.COL_EMAIL, usuario.getEmail());
+                values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
+                values.put(usuario.COL_ENDERECO, usuario.getEndereco());
+                values.put(usuario.COL_TELEFONE, usuario.getTelefone());
+                values.put(usuario.COL_CELULAR, usuario.getCelular());
+                //values.put(Usuario.COL_NIVEL, usuario.getNivel());
+
+                db.update(Usuario.TABLE_NAME, values, String.valueOf(usuario.getId()), null);
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
         return null;
     }
 
@@ -70,10 +102,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
     @Override
     public Usuario findById(Long id) {
 
-        Cursor cursor;
-        String [] colums = {Usuario.COL_ID};
-        String[] arguments = {" WHERE " + Usuario.COL_ID + " = " + id};
-        Usuario usuario;
+        String[] arguments = {String.valueOf(id)};
 
         try {
 
@@ -81,7 +110,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
             usuario = new Usuario();
 
             if(db != null){
-                cursor = db.rawQuery("SELECT * FROM " + Usuario.TABLE_NAME, arguments);
+                cursor = db.rawQuery("SELECT * FROM " + Usuario.TABLE_NAME + " WHERE ID = ?", arguments);
 
                 if(cursor != null && cursor.getCount() != 0) {
                     cursor.moveToFirst();
@@ -95,6 +124,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
                     usuario.setTelefone(cursor.getString(7));
                     usuario.setCelular(cursor.getString(8));
                     usuario.setNivel(cursor.getInt(9));
+
                 }
                 db.close();
             }
@@ -102,14 +132,65 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
         }catch (Exception e){
             System.out.println(e.getMessage());
+
             return null;
 
         }
+    }
 
+    public void testQuery(){
+
+        db = banco.getWritableDatabase();
+
+        String query = "SELECT * FROM USUARIO";
+
+        Cursor c =  db.rawQuery(query, new String[]{});
+
+        while (c.moveToNext()){
+            System.out.println(c.getLong(0));
+        }
+        db.close();
     }
 
     @Override
     public Usuario findByIdLoginAndPassword(String login, String password) {
-        return null;
+
+
+        String[] arguments = {login, password};
+
+        try {
+
+            db = banco.getReadableDatabase();
+            usuario = new Usuario();
+
+            if(db != null){
+                cursor = db.rawQuery("SELECT * FROM " + Usuario.TABLE_NAME + " WHERE LOGIN = ? AND PASSWORD = ?", arguments);
+
+                if(cursor != null && cursor.getCount() != 0) {
+                    cursor.moveToFirst();
+                    usuario.setId(cursor.getLong(0));
+                    usuario.setNome(cursor.getString(1));
+                    usuario.setLogin(cursor.getString(2));
+                    usuario.setPassword(cursor.getString(3));
+                    usuario.setEmail(cursor.getString(4));
+                    usuario.setMunicipio(cursor.getString(5));
+                    usuario.setEndereco(cursor.getString(6));
+                    usuario.setTelefone(cursor.getString(7));
+                    usuario.setCelular(cursor.getString(8));
+                    usuario.setNivel(cursor.getInt(9));
+
+                }
+
+                db.close();
+            }
+            return usuario;
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+            return null;
+
+        }
     }
+
 }
