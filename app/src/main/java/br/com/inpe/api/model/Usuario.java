@@ -45,6 +45,8 @@ public class Usuario extends BaseModel{
 
     protected  Integer nivel;
 
+
+
     /*
         - Criar Resttrições "Senha", Email, telefone e celular.
 
@@ -121,12 +123,12 @@ public class Usuario extends BaseModel{
         this.nivel = nivel;
     }
 
-    public Usuario(Long id, String password, String login, String nome, String email, String municipio,
+    public Usuario(Long id, String nome, String login, String password, String email, String municipio,
                    String endereco, String telefone, String celular, Integer nivel) {
         this.id = id;
-        this.password = password;
-        this.login = login;
         this.nome = nome;
+        this.login = login;
+        this.password = password;
         this.email = email;
         this.municipio = municipio;
         this.endereco = endereco;

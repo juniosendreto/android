@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import br.com.inpe.api.model.Usuario;
 import br.com.inpe.core.dao.UsuarioDaoImpl;
 
@@ -19,18 +21,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Usuario usuario = new Usuario(50L, "junio", "junio", "junio", "s","s","s","s","s", 1);
+        Usuario u =  new Usuario(67L, "pedro", "elias", "elias", "elias", "elias", "elias", "elias", "elias", 1);
+        Usuario usu;
 
-        Usuario u;
+        UsuarioDaoImpl usuarioImp = new UsuarioDaoImpl(this);
 
-        UsuarioDaoImpl t =  new UsuarioDaoImpl(this);
+        //usu = usuarioImp.save(u);
 
-        u = t.findByIdLoginAndPassword("junio", "junio");
+        /*
 
-        System.out.println(u.getLogin());
-        System.out.println(u.getPassword());
-        System.out.println(u.getId());
+        System.out.print(usu.getId());
+        System.out.print(usu.getLogin());
+        System.out.print(usu.getPassword());
+        System.out.print(usu.getEmail());
+        System.out.print(usu.getCelular());
+        System.out.print(usu.getEndereco());
+        System.out.print(usu.getMunicipio());
+        System.out.print(usu.getNome());
+        System.out.print(usu.getTelefone());
+        System.out.print(usu.getNivel());
 
+        */
+
+        //usuarioImp.delete(u);
+
+
+        List<Usuario> usuarios;
+
+        usuarios = usuarioImp.listAll();
+
+        System.out.print(usuarios.isEmpty());
+/*
+        for(Usuario uu: usuarios){
+            System.out.print(uu.getId());
+            System.out.print(uu.getNome());
+            System.out.print(uu.getPassword());
+            System.out.print(uu.getEmail());
+            System.out.print(uu.getLogin());
+            System.out.print(uu.getNivel());
+            System.out.print(uu.getTelefone());
+            System.out.print(uu.getCelular());
+            System.out.print(uu.getMunicipio());
+            System.out.print(uu.getEndereco());
+
+        }
+*/
 
 
     }

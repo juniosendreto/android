@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.inpe.api.dao.UsuarioDao;
@@ -31,41 +32,43 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public Usuario save(Usuario usuario) {
+
         try {
             db = banco.getWritableDatabase();
 
-            ContentValues values =  new ContentValues();
-            values.put(usuario.COL_ID, usuario.getId());
-            values.put(usuario.COL_LOGIN, usuario.getLogin());
-            values.put(usuario.COL_PASSWORD, usuario.getPassword());
-            values.put(usuario.COL_NOME, usuario.getNome());
-            values.put(usuario.COL_EMAIL, usuario.getEmail());
-            values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
-            values.put(usuario.COL_ENDERECO, usuario.getEndereco());
-            values.put(usuario.COL_TELEFONE, usuario.getTelefone());
-            values.put(usuario.COL_CELULAR, usuario.getCelular());
-            values.put(usuario.COL_NIVEL, usuario.getNivel());
+            if(db != null){
 
-            db.insert(Usuario.TABLE_NAME, null, values);
+                ContentValues values =  new ContentValues();
+                values.put(usuario.COL_ID, usuario.getId());
+                values.put(usuario.COL_LOGIN, usuario.getLogin());
+                values.put(usuario.COL_PASSWORD, usuario.getPassword());
+                values.put(usuario.COL_NOME, usuario.getNome());
+                values.put(usuario.COL_EMAIL, usuario.getEmail());
+                values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
+                values.put(usuario.COL_ENDERECO, usuario.getEndereco());
+                values.put(usuario.COL_TELEFONE, usuario.getTelefone());
+                values.put(usuario.COL_CELULAR, usuario.getCelular());
+                values.put(usuario.COL_NIVEL, usuario.getNivel());
 
-            db.close();
+                if(db.insert(Usuario.TABLE_NAME, null, values) != -1){
+                    db.close();
+                    return usuario;
+                }
+            }
+            return null;
 
-            //return this.findById(usuario.getId());
-            return usuario;
         }catch (Exception e){
             System.out.println(e.getMessage());
-
             return null;
         }
     }
 
     @Override
     public Usuario upgrade(Usuario usuario) {
-
+        //estranho
         try{
             db = banco.getReadableDatabase();
             if(db != null) {
-
                 values = new ContentValues();
 
                 //values.put(Usuario.COL_ID, usuario.getId());
@@ -91,18 +94,102 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public Boolean delete(Usuario usuario) {
-        return null;
+
+        /*
+
+        String where = "NOME = " + usuario.getNome();
+
+        try {
+            db = banco.getReadableDatabase();
+
+            if(db != null){
+                db.delete(Usuario.TABLE_NAME, where, null);
+                return true;
+
+            }else{
+                return null;
+            }
+
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+            return false;
+
+        }
+        */
+
+        String where = "NOME = ?";
+
+        try{
+            db = banco.getReadableDatabase();
+            if(db != null){
+                int rows = db.delete(Usuario.TABLE_NAME, where, new String[]{usuario.getNome()});
+                if(rows != 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        }catch (Exception e){
+            System.out.print(e.getMessage());
+            return false;
+        }
+        return false;
+
     }
 
     @Override
     public List<Usuario> listAll() {
-        return null;
+
+        /****************************************************************
+         *
+         */
+
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        String query = "SELECT * FROM USUARIO";
+
+
+        try{
+            db =  banco.getReadableDatabase();
+            if(db != null) {
+                cursor = db.rawQuery(query, new String[]{});
+
+                if(cursor != null && cursor.getCount() != 0){
+                    cursor.moveToFirst();
+                    usuario.setId(cursor.getLong(0));
+                    usuario.setNome(cursor.getString(1));
+                    usuario.setLogin(cursor.getString(2));
+                    usuario.setPassword(cursor.getString(3));
+                    usuario.setEmail(cursor.getString(4));
+                    usuario.setMunicipio(cursor.getString(5));
+                    usuario.setEndereco(cursor.getString(6));
+                    usuario.setTelefone(cursor.getString(7));
+                    usuario.setCelular(cursor.getString(8));
+                    usuario.setNivel(cursor.getInt(9));
+
+
+                    usuarios.add(usuario);
+
+                }
+                db.close();
+
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("OI ---------------------");
+
+
+        }
+
+        return usuarios;
     }
 
     @Override
     public Usuario findById(Long id) {
 
         String[] arguments = {String.valueOf(id)};
+        String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE ID = ?";
 
         try {
 
@@ -110,7 +197,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
             usuario = new Usuario();
 
             if(db != null){
-                cursor = db.rawQuery("SELECT * FROM " + Usuario.TABLE_NAME + " WHERE ID = ?", arguments);
+                cursor = db.rawQuery(query, arguments);
 
                 if(cursor != null && cursor.getCount() != 0) {
                     cursor.moveToFirst();
@@ -155,8 +242,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
     @Override
     public Usuario findByIdLoginAndPassword(String login, String password) {
 
-
         String[] arguments = {login, password};
+        String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE LOGIN = ? AND PASSWORD = ?";
 
         try {
 
@@ -164,7 +251,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
             usuario = new Usuario();
 
             if(db != null){
-                cursor = db.rawQuery("SELECT * FROM " + Usuario.TABLE_NAME + " WHERE LOGIN = ? AND PASSWORD = ?", arguments);
+                cursor = db.rawQuery(query, arguments);
 
                 if(cursor != null && cursor.getCount() != 0) {
                     cursor.moveToFirst();
