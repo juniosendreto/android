@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,62 +62,49 @@ public class UsuarioDaoImpl implements UsuarioDao{
             System.out.println(e.getMessage());
             return null;
         }
-    }
+    } //OK
 
     @Override
     public Usuario upgrade(Usuario usuario) {
-        //estranho
+        /*
+            - Na tela de alteração, recuperar as informações atuais do usuário antes da alteração,
+            assim exibi-las nos TextBox.
+
+
+            ESTRANHO
+         */
+
+        String where = "ID = ?";
+        String []id = {String.valueOf(usuario.getId())};
+
         try{
             db = banco.getReadableDatabase();
             if(db != null) {
                 values = new ContentValues();
 
-                //values.put(Usuario.COL_ID, usuario.getId());
-                //values.put(Usuario.COL_LOGIN, usuario.getLogin());
                 values.put(usuario.COL_PASSWORD, usuario.getPassword());
-                // values.put(Usuario.COL_NOME, usuario.getNome());
+                values.put(Usuario.COL_NOME, usuario.getNome());
                 values.put(usuario.COL_EMAIL, usuario.getEmail());
                 values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
                 values.put(usuario.COL_ENDERECO, usuario.getEndereco());
                 values.put(usuario.COL_TELEFONE, usuario.getTelefone());
                 values.put(usuario.COL_CELULAR, usuario.getCelular());
-                //values.put(Usuario.COL_NIVEL, usuario.getNivel());
 
-                db.update(Usuario.TABLE_NAME, values, String.valueOf(usuario.getId()), null);
+                db.update(Usuario.TABLE_NAME, values, where, id);
+
+                Log.d("teste", "I past at exan, very cool ----------------------------");
             }
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return usuario;
     }
 
     @Override
     public Boolean delete(Usuario usuario) {
 
-        /*
-
-        String where = "NOME = " + usuario.getNome();
-
-        try {
-            db = banco.getReadableDatabase();
-
-            if(db != null){
-                db.delete(Usuario.TABLE_NAME, where, null);
-                return true;
-
-            }else{
-                return null;
-            }
-
-        }catch (Exception e){
-
-            System.out.println(e.getMessage());
-            return false;
-
-        }
-        */
 
         String where = "NOME = ?";
 
@@ -137,7 +125,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
         }
         return false;
 
-    }
+    } //OK
 
     @Override
     public List<Usuario> listAll() {
@@ -149,27 +137,31 @@ public class UsuarioDaoImpl implements UsuarioDao{
         List<Usuario> usuarios = new ArrayList<Usuario>();
         String query = "SELECT * FROM USUARIO";
 
-
         try{
             db =  banco.getReadableDatabase();
             if(db != null) {
                 cursor = db.rawQuery(query, new String[]{});
 
                 if(cursor != null && cursor.getCount() != 0){
-                    cursor.moveToFirst();
-                    usuario.setId(cursor.getLong(0));
-                    usuario.setNome(cursor.getString(1));
-                    usuario.setLogin(cursor.getString(2));
-                    usuario.setPassword(cursor.getString(3));
-                    usuario.setEmail(cursor.getString(4));
-                    usuario.setMunicipio(cursor.getString(5));
-                    usuario.setEndereco(cursor.getString(6));
-                    usuario.setTelefone(cursor.getString(7));
-                    usuario.setCelular(cursor.getString(8));
-                    usuario.setNivel(cursor.getInt(9));
+                    while(cursor.moveToNext()) {
+                        //cursor.moveToFirst();
+                        usuario =  new Usuario();
+
+                        usuario.setId(cursor.getLong(0));
+                        usuario.setNome(cursor.getString(1));
+                        usuario.setLogin(cursor.getString(2));
+                        usuario.setPassword(cursor.getString(3));
+                        usuario.setEmail(cursor.getString(4));
+                        usuario.setMunicipio(cursor.getString(5));
+                        usuario.setEndereco(cursor.getString(6));
+                        usuario.setTelefone(cursor.getString(7));
+                        usuario.setCelular(cursor.getString(8));
+                        usuario.setNivel(cursor.getInt(9));
 
 
-                    usuarios.add(usuario);
+                        usuarios.add(usuario);
+
+                    }
 
                 }
                 db.close();
@@ -177,13 +169,11 @@ public class UsuarioDaoImpl implements UsuarioDao{
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-            System.out.println("OI ---------------------");
-
 
         }
 
         return usuarios;
-    }
+    } //OK
 
     @Override
     public Usuario findById(Long id) {
@@ -219,11 +209,10 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
         }catch (Exception e){
             System.out.println(e.getMessage());
-
             return null;
 
         }
-    }
+    } //OK
 
     public void testQuery(){
 
@@ -248,12 +237,12 @@ public class UsuarioDaoImpl implements UsuarioDao{
         try {
 
             db = banco.getReadableDatabase();
-            usuario = new Usuario();
-
             if(db != null){
                 cursor = db.rawQuery(query, arguments);
 
                 if(cursor != null && cursor.getCount() != 0) {
+                    usuario = new Usuario();
+
                     cursor.moveToFirst();
                     usuario.setId(cursor.getLong(0));
                     usuario.setNome(cursor.getString(1));
@@ -274,10 +263,9 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
         }catch (Exception e){
             System.out.println(e.getMessage());
-
             return null;
 
         }
-    }
+    } //OK
 
 }
