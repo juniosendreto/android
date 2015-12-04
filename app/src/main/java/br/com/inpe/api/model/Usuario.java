@@ -139,7 +139,7 @@ public class Usuario extends BaseModel{
 
     public Usuario(){    }
 
-    //Contrutor para update de informações no banco
+    //Construtor para update de informações no banco
 
     public Usuario(String nome, String password, String email, String municipio,
                    String endereco, String telefone, String celular) {
