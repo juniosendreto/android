@@ -11,6 +11,8 @@ public class Usuario extends BaseModel{
 
     public static final String COL_NOME = "NOME";
 
+    public static final String COL_CPF = "CPF";
+
     public static final String COL_EMAIL = "EMAIL";
 
     public static final String COL_MUNICIPIO = "MUNICIPIO";
@@ -27,23 +29,25 @@ public class Usuario extends BaseModel{
 
     public static final String  DATABASE_NAME = "project_db";
 
-    protected String login;
+    private String login;
 
-    protected String password;
+    private String password;
 
-    protected String nome;
+    private String nome;
 
-    protected String email;
+    private String cpf;
 
-    protected String municipio;
+    private String email;
 
-    protected String endereco;
+    private String municipio;
 
-    protected String telefone;
+    private String endereco;
 
-    protected String celular;
+    private String telefone;
 
-    protected  Integer nivel;
+    private String celular;
+
+    private Integer nivel;
 
 
 
@@ -73,6 +77,14 @@ public class Usuario extends BaseModel{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -123,10 +135,10 @@ public class Usuario extends BaseModel{
         this.nivel = nivel;
     }
 
-    public Usuario(Long id, String nome, String login, String password, String email, String municipio,
+    public Usuario(String nome, String cpf, String login, String password, String email, String municipio,
                    String endereco, String telefone, String celular, Integer nivel) {
-        this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
         this.login = login;
         this.password = password;
         this.email = email;
@@ -153,6 +165,5 @@ public class Usuario extends BaseModel{
         this.celular = celular;
 
     }
-
 
 }

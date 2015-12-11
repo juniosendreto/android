@@ -41,9 +41,10 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
                 ContentValues values =  new ContentValues();
                 values.put(usuario.COL_ID, usuario.getId());
+                values.put(usuario.COL_NOME, usuario.getNome());
+                values.put(usuario.COL_CPF, usuario.getCpf());
                 values.put(usuario.COL_LOGIN, usuario.getLogin());
                 values.put(usuario.COL_PASSWORD, usuario.getPassword());
-                values.put(usuario.COL_NOME, usuario.getNome());
                 values.put(usuario.COL_EMAIL, usuario.getEmail());
                 values.put(usuario.COL_MUNICIPIO, usuario.getMunicipio());
                 values.put(usuario.COL_ENDERECO, usuario.getEndereco());
@@ -66,13 +67,6 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public Usuario upgrade(Usuario usuario) {
-        /*
-            - Na tela de alteração, recuperar as informações atuais do usuário antes da alteração,
-            assim exibi-las nos TextBox.
-
-
-            ESTRANHO
-         */
 
         String where = "ID = ?";
         String []id = {String.valueOf(usuario.getId())};
@@ -92,7 +86,6 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
                 db.update(Usuario.TABLE_NAME, values, where, id);
 
-                Log.d("teste", "I past at exan, very cool ----------------------------");
             }
 
         }catch (Exception e){
@@ -130,10 +123,6 @@ public class UsuarioDaoImpl implements UsuarioDao{
     @Override
     public List<Usuario> listAll() {
 
-        /****************************************************************
-         *
-         */
-
         List<Usuario> usuarios = new ArrayList<Usuario>();
         String query = "SELECT * FROM USUARIO";
 
@@ -149,14 +138,15 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
                         usuario.setId(cursor.getLong(0));
                         usuario.setNome(cursor.getString(1));
-                        usuario.setLogin(cursor.getString(2));
-                        usuario.setPassword(cursor.getString(3));
-                        usuario.setEmail(cursor.getString(4));
-                        usuario.setMunicipio(cursor.getString(5));
-                        usuario.setEndereco(cursor.getString(6));
-                        usuario.setTelefone(cursor.getString(7));
-                        usuario.setCelular(cursor.getString(8));
-                        usuario.setNivel(cursor.getInt(9));
+                        usuario.setCpf(cursor.getString(2));
+                        usuario.setLogin(cursor.getString(3));
+                        usuario.setPassword(cursor.getString(4));
+                        usuario.setEmail(cursor.getString(5));
+                        usuario.setMunicipio(cursor.getString(6));
+                        usuario.setEndereco(cursor.getString(7));
+                        usuario.setTelefone(cursor.getString(8));
+                        usuario.setCelular(cursor.getString(9));
+                        usuario.setNivel(cursor.getInt(10));
 
 
                         usuarios.add(usuario);
@@ -193,14 +183,15 @@ public class UsuarioDaoImpl implements UsuarioDao{
                     cursor.moveToFirst();
                     usuario.setId(cursor.getLong(0));
                     usuario.setNome(cursor.getString(1));
-                    usuario.setLogin(cursor.getString(2));
-                    usuario.setPassword(cursor.getString(3));
-                    usuario.setEmail(cursor.getString(4));
-                    usuario.setMunicipio(cursor.getString(5));
-                    usuario.setEndereco(cursor.getString(6));
-                    usuario.setTelefone(cursor.getString(7));
-                    usuario.setCelular(cursor.getString(8));
-                    usuario.setNivel(cursor.getInt(9));
+                    usuario.setCpf(cursor.getString(2));
+                    usuario.setLogin(cursor.getString(3));
+                    usuario.setPassword(cursor.getString(4));
+                    usuario.setEmail(cursor.getString(5));
+                    usuario.setMunicipio(cursor.getString(6));
+                    usuario.setEndereco(cursor.getString(7));
+                    usuario.setTelefone(cursor.getString(8));
+                    usuario.setCelular(cursor.getString(9));
+                    usuario.setNivel(cursor.getInt(10));
 
                 }
                 db.close();
@@ -246,14 +237,15 @@ public class UsuarioDaoImpl implements UsuarioDao{
                     cursor.moveToFirst();
                     usuario.setId(cursor.getLong(0));
                     usuario.setNome(cursor.getString(1));
-                    usuario.setLogin(cursor.getString(2));
-                    usuario.setPassword(cursor.getString(3));
-                    usuario.setEmail(cursor.getString(4));
-                    usuario.setMunicipio(cursor.getString(5));
-                    usuario.setEndereco(cursor.getString(6));
-                    usuario.setTelefone(cursor.getString(7));
-                    usuario.setCelular(cursor.getString(8));
-                    usuario.setNivel(cursor.getInt(9));
+                    usuario.setCpf(cursor.getString(2));
+                    usuario.setLogin(cursor.getString(3));
+                    usuario.setPassword(cursor.getString(4));
+                    usuario.setEmail(cursor.getString(5));
+                    usuario.setMunicipio(cursor.getString(6));
+                    usuario.setEndereco(cursor.getString(7));
+                    usuario.setTelefone(cursor.getString(8));
+                    usuario.setCelular(cursor.getString(9));
+                    usuario.setNivel(cursor.getInt(10));
 
                 }
 

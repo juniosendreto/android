@@ -25,8 +25,9 @@ public class DataBase extends SQLiteOpenHelper{
         /*
             CREATE TABLE USUARIO(
 
-                ID INTEGER PRIMARY KEY,
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 NOME TEXT,
+                CPF TEXT NOT NULL
                 LOGIN TEXT NOT NULL,
                 PASSWORD TEXT NOT NULL,
                 EMAIL TEXT NOT NULL,
@@ -41,12 +42,18 @@ public class DataBase extends SQLiteOpenHelper{
          */
         try {
 
-            String CREATE_USUARIO_TABLE = "CREATE TABLE " + Usuario.TABLE_NAME + "(" + Usuario.COL_ID +
-                    " INTEGER PRIMARY KEY, " + Usuario.COL_NOME + " TEXT NOT NULL, " + Usuario.COL_LOGIN +
-                    " TEXT NOT NULL," + Usuario.COL_PASSWORD + " TEXT NOT NULL, " + Usuario.COL_EMAIL +
-                    " TEXT NOT NULL, " + Usuario.COL_MUNICIPIO + " TEXT, " + Usuario.COL_ENDERECO + " TEXT, " +
-                    Usuario.COL_TELEFONE + " TEXT, " + Usuario.COL_CELULAR + " TEXT, " + Usuario.COL_NIVEL +
-                    " INTEGER NOT NULL " + ");";
+            String CREATE_USUARIO_TABLE = "CREATE TABLE " + Usuario.TABLE_NAME + "(" +
+                    Usuario.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Usuario.COL_NOME + " TEXT NOT NULL, " +
+                    Usuario.COL_CPF + " TEXT NOT NULL, " +
+                    Usuario.COL_LOGIN + " TEXT NOT NULL," +
+                    Usuario.COL_PASSWORD + " TEXT NOT NULL, " +
+                    Usuario.COL_EMAIL + " TEXT NOT NULL, " +
+                    Usuario.COL_MUNICIPIO + " TEXT, " +
+                    Usuario.COL_ENDERECO + " TEXT, " +
+                    Usuario.COL_TELEFONE + " TEXT, " +
+                    Usuario.COL_CELULAR + " TEXT, " +
+                    Usuario.COL_NIVEL + " INTEGER NOT NULL " + ");";
             System.out.println(CREATE_USUARIO_TABLE);
 
             db.execSQL(CREATE_USUARIO_TABLE);
