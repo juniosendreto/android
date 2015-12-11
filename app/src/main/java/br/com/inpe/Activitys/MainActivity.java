@@ -1,4 +1,4 @@
-package br.com.inpe;
+package br.com.inpe.Activitys;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import br.com.inpe.R;
 import br.com.inpe.api.model.Usuario;
 import br.com.inpe.core.dao.UsuarioDaoImpl;
 
@@ -20,14 +21,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.cadastro_layout);
 
     }
 
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -39,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+         //   return true;
+        //}
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
