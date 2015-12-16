@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro_layout);
 
+        Log.d("PEga meu filho", "aaaaaaaaaa");
+
     }
 
 
