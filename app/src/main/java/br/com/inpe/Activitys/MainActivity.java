@@ -1,5 +1,6 @@
 package br.com.inpe.Activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.List;
 
@@ -18,36 +21,53 @@ import br.com.inpe.core.dao.UsuarioDaoImpl;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cadastro_layout);
+        setContentView(R.layout.login_layout);
 
-        Log.d("PEga meu filho", "aaaaaaaaaa");
+        ImageButton imageButton =  (ImageButton) findViewById(R.id.imageButton);
+        Button button = (Button) findViewById(R.id.LogarButton);
 
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    chamarActivity(v, Class.forName("br.com.inpe.Activitys.CadastroActivity"));
+                } catch (ClassNotFoundException e) {
+                    Log.d("ERRO CHAMADA CADASTRO", e.getMessage());
+                }
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    chamarActivity(v, Class.forName("br.com.inpe.Activitys.TelaInicialActivity"));
+                } catch (ClassNotFoundException e) {
+                    Log.d("ERRO CHAMADA TELA", e.getMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
 
-    /*
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void chamarActivity(View view, Class c) {
 
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) {
-         //   return true;
-        //}
+        Intent secondActivity = new Intent(this, c);
+        startActivity(secondActivity);
+    }
 
-        return super.onOptionsItemSelected(item);
-    }*/
 }
