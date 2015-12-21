@@ -1,5 +1,7 @@
 package br.com.inpe.api.model;
 
+import android.util.Log;
+
 /**
  * Created by junio on 04/11/15.
  */
@@ -68,7 +70,10 @@ public class Usuario extends BaseModel{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password.length() >= 5){
+            this.password = password;
+
+        }
     }
 
     public String getNome() {
@@ -84,6 +89,12 @@ public class Usuario extends BaseModel{
     }
 
     public void setCpf(String cpf) {
+
+
+
+
+
+
         this.cpf = cpf;
     }
 
@@ -165,5 +176,64 @@ public class Usuario extends BaseModel{
         this.celular = celular;
 
     }
+
+    public void validarCfp(String password){
+
+        Integer numeroMultiplicacao;
+        String digito = "";
+        String novoCpf = "";
+
+        for(int i = 0; i < password.length(); i++){
+            if(String.valueOf(password.charAt(i)).contains("!@#$%*()-_+=,.;")){
+                continue;
+            }else{
+                novoCpf = novoCpf + password.charAt(i);
+            }
+        }
+
+        for(int i = 0; i < 2; i++){
+            Integer calculo = 0;
+            Integer calculoAux = 0;
+
+            if(i == 0){
+                numeroMultiplicacao = 10;
+                for(int j = 0; j < 9; j++){
+                    calculo = calculo + Integer.parseInt(String.valueOf(novoCpf.charAt(j))) * numeroMultiplicacao;
+                    Log.d("total", "------" + password.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
+
+                    numeroMultiplicacao--;
+                }
+                calculoAux = 11 - (calculo % 11);
+
+                if(calculoAux == 10 || calculoAux == 11) {
+                    digito = "0";
+                }else{
+                    digito = Integer.toString(calculoAux);
+                }
+
+            }else if(i == 1){
+                numeroMultiplicacao = 11;
+
+                for(int j = 0; j < 10; j++){
+                    calculo = calculo + (Integer.parseInt(String.valueOf(novoCpf.charAt(j))) * numeroMultiplicacao);
+                    numeroMultiplicacao--;
+
+                }
+                calculoAux = 11 - (calculo % 11);
+
+
+                if(calculoAux == 10 || calculoAux == 11) {
+                    digito = digito + "0";
+                }else{
+                    digito = digito + Integer.toString(calculoAux);
+                }
+
+            }
+        }
+
+        Log.d("Digito", "--------" + digito);
+
+    }
+
 
 }

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    chamarActivity(v, Class.forName("br.com.inpe.Activitys.CadastroActivity"));
+                    chamarActivity(Class.forName("br.com.inpe.Activitys.CadastroActivity"));
                 } catch (ClassNotFoundException e) {
                     Log.d("ERRO CHAMADA CADASTRO", e.getMessage());
                 }
@@ -45,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    chamarActivity(v, Class.forName("br.com.inpe.Activitys.TelaInicialActivity"));
+                    chamarActivity(Class.forName("br.com.inpe.Activitys.TelaInicialActivity"));
                 } catch (ClassNotFoundException e) {
                     Log.d("ERRO CHAMADA TELA", e.getMessage());
                 }
             }
         });
+
+        validarCfp("39761555860");
     }
 
     @Override
@@ -64,10 +66,64 @@ public class MainActivity extends AppCompatActivity {
         return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
-    public void chamarActivity(View view, Class c) {
+    public void chamarActivity(Class novaActivity) {
 
-        Intent secondActivity = new Intent(this, c);
-        startActivity(secondActivity);
+        Intent abrirActivity = new Intent(this, novaActivity);
+        startActivity(abrirActivity);
+    }
+
+    public void validarCfp(String password){
+
+        Integer numeroMultiplicacao;
+        String digito = "";
+
+        for(int i = 0; i < 2; i++){
+            Integer calculo = 0;
+            Integer calculoAux = 0;
+
+            if(i == 0){
+                numeroMultiplicacao = 10;
+                // 1 2 3 4 5 6 7 8 9 | 10 11
+                for(int j = 0; j < 9; j++){
+                    calculo = calculo + Integer.parseInt(String.valueOf(password.charAt(j))) * numeroMultiplicacao;
+                    Log.d("total", "------" + password.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
+
+                    numeroMultiplicacao--;
+                }
+                //Log.d("total", "------" + calculo);
+                calculoAux = 11 - (calculo % 11);
+                //Log.d("total", "------" + calculoAux);
+
+
+                if(calculoAux == 10 || calculoAux == 11) {
+                    digito = "0";
+                }else{
+                    digito = Integer.toString(calculoAux);
+                }
+
+            }else if(i == 1){
+                numeroMultiplicacao = 11;
+
+                for(int j = 0; j < 10; j++){
+                    calculo = calculo + (Integer.parseInt(String.valueOf(password.charAt(j))) * numeroMultiplicacao);
+                    numeroMultiplicacao--;
+
+                }
+                calculoAux = 11 - (calculo % 11);
+                //Log.d("total", "------" + calculoAux);
+
+
+                if(calculoAux == 10 || calculoAux == 11) {
+                    digito = digito + "0";
+                }else{
+                    digito = digito + Integer.toString(calculoAux);
+                }
+
+            }
+        }
+
+        Log.d("Digito", "--------" + digito);
+
     }
 
 }

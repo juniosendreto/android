@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:baselineAligned="false">
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,12 +18,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:id="@+id/NomeView" />
+                android:id="@+id/nomeView" />
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/NomeEditText"
+                android:id="@+id/nomeEditText"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -34,7 +35,7 @@
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/LoginEditText"
+                android:id="@+id/loginEditText"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cpfEditText"
                 android:layout_gravity="center_horizontal" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,15 +136,30 @@
                 android:id="@+id/nivelEditText"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Salvar"
-                android:id="@+id/salvarButton"
-                android:layout_gravity="center_horizontal" />
-
-
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:id="@+id/salvarButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginStart="48dp" />
+
+    <EditText
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/digitoCpfEditText"
+        android:layout_marginTop="194dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/scrollView"
+        android:layout_toRightOf="@+id/scrollView" />
+
+
+</RelativeLayout>
