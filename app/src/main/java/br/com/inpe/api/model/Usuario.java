@@ -2,6 +2,9 @@ package br.com.inpe.api.model;
 
 import android.util.Log;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by junio on 04/11/15.
  */
@@ -52,9 +55,8 @@ public class Usuario extends BaseModel{
     private Integer nivel;
 
 
-
     /*
-        - Criar Resttrições "Senha", Email, telefone e celular.
+        - Criar Resttrições CPF, Senha, Email(OK), '''''telefone e celular'''''.
 
     */
     public String getLogin() {
@@ -89,13 +91,10 @@ public class Usuario extends BaseModel{
     }
 
     public void setCpf(String cpf) {
+        if(validarCfp(cpf) == true){
+            this.cpf = cpf;
+        }
 
-
-
-
-
-
-        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -103,7 +102,9 @@ public class Usuario extends BaseModel{
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(validarEmail(email) == true) {
+            this.email = email;
+        }
     }
 
     public String getMunicipio() {
@@ -143,7 +144,10 @@ public class Usuario extends BaseModel{
     }
 
     public void setNivel(Integer nivel) {
-        this.nivel = nivel;
+        if( nivel == 1 || nivel == 2){
+            this.nivel = nivel;
+
+        }
     }
 
     public Usuario(String nome, String cpf, String login, String password, String email, String municipio,
@@ -177,63 +181,86 @@ public class Usuario extends BaseModel{
 
     }
 
-    public void validarCfp(String password){
+    public Boolean validarCfp(String cpf){
 
         Integer numeroMultiplicacao;
         String digito = "";
-        String novoCpf = "";
+        String cpfAux = "";
 
-        for(int i = 0; i < password.length(); i++){
-            if(String.valueOf(password.charAt(i)).contains("!@#$%*()-_+=,.;")){
-                continue;
-            }else{
-                novoCpf = novoCpf + password.charAt(i);
+        for(int i = 0; i < cpf.length(); i++){
+            if(Character.isDigit(cpf.charAt(i))){
+                cpfAux = cpfAux + cpf.charAt(i);
             }
         }
+        if(cpfAux.length() == 11){
 
-        for(int i = 0; i < 2; i++){
-            Integer calculo = 0;
-            Integer calculoAux = 0;
+            for(int i = 0; i < 2; i++){
+                Integer calculo = 0;
+                Integer calculoAux = 0;
 
-            if(i == 0){
-                numeroMultiplicacao = 10;
-                for(int j = 0; j < 9; j++){
-                    calculo = calculo + Integer.parseInt(String.valueOf(novoCpf.charAt(j))) * numeroMultiplicacao;
-                    Log.d("total", "------" + password.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
+                if(i == 0){
+                    numeroMultiplicacao = 10;
+                    // 1 2 3 4 5 6 7 8 9 | 10 11
+                    for(int j = 0; j < 9; j++){
+                        calculo = calculo + Integer.parseInt(String.valueOf(cpf.charAt(j))) * numeroMultiplicacao;
+                        Log.d("total", "------" + cpf.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
 
-                    numeroMultiplicacao--;
+                        numeroMultiplicacao--;
+                    }
+                    //Log.d("total", "------" + calculo);
+                    calculoAux = 11 - (calculo % 11);
+                    //Log.d("total", "------" + calculoAux);
+
+
+                    if(calculoAux == 10 || calculoAux == 11) {
+                        digito = "0";
+                    }else{
+                        digito = Integer.toString(calculoAux);
+                    }
+
+                }else if(i == 1){
+                    numeroMultiplicacao = 11;
+
+                    for(int j = 0; j < 10; j++){
+                        calculo = calculo + (Integer.parseInt(String.valueOf(cpf.charAt(j))) * numeroMultiplicacao);
+                        numeroMultiplicacao--;
+
+                    }
+                    calculoAux = 11 - (calculo % 11);
+                    //Log.d("total", "------" + calculoAux);
+
+
+                    if(calculoAux == 10 || calculoAux == 11) {
+                        digito = digito + "0";
+                    }else{
+                        digito = digito + Integer.toString(calculoAux);
+                    }
+
                 }
-                calculoAux = 11 - (calculo % 11);
-
-                if(calculoAux == 10 || calculoAux == 11) {
-                    digito = "0";
-                }else{
-                    digito = Integer.toString(calculoAux);
-                }
-
-            }else if(i == 1){
-                numeroMultiplicacao = 11;
-
-                for(int j = 0; j < 10; j++){
-                    calculo = calculo + (Integer.parseInt(String.valueOf(novoCpf.charAt(j))) * numeroMultiplicacao);
-                    numeroMultiplicacao--;
-
-                }
-                calculoAux = 11 - (calculo % 11);
-
-
-                if(calculoAux == 10 || calculoAux == 11) {
-                    digito = digito + "0";
-                }else{
-                    digito = digito + Integer.toString(calculoAux);
-                }
-
             }
+
+
         }
 
-        Log.d("Digito", "--------" + digito);
+        if(digito.charAt(0) == cpfAux.charAt(9) && digito.charAt(1) == cpfAux.charAt(10)){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
+    public boolean validarEmail(String email){
+        boolean emailValido = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                emailValido = true;
+            }
+        }
+        return emailValido;
+    }
 
 }

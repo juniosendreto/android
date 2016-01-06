@@ -26,7 +26,7 @@ public class DataBase extends SQLiteOpenHelper{
             CREATE TABLE USUARIO(
 
                 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                NOME TEXT,
+                NOME TEXT NOT NULL,
                 CPF TEXT NOT NULL
                 LOGIN TEXT NOT NULL,
                 PASSWORD TEXT NOT NULL,

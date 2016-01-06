@@ -260,4 +260,31 @@ public class UsuarioDaoImpl implements UsuarioDao{
         }
     } //OK
 
+
+    public Boolean findByLogin(String login) {
+
+        String[] arguments = {String.valueOf(login)};
+        String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE ID = ?";
+
+        try {
+
+            db = banco.getReadableDatabase();
+
+            if(db != null){
+                cursor = db.rawQuery(query, arguments);
+
+                if(cursor != null && cursor.getCount() != 0) {
+                    return true;
+                }
+                db.close();
+            }
+            return false;
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+
+        }
+    }
+
 }
