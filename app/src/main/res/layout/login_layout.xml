@@ -51,5 +51,13 @@
         android:layout_gravity="center_horizontal"
         android:background="#ffffff" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login ou Senha incorreto"
+        android:id="@+id/report"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
 
 </LinearLayout>

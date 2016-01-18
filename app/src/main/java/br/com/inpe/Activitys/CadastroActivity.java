@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import br.com.inpe.R;
 import br.com.inpe.api.model.Usuario;
+import br.com.inpe.core.dao.UsuarioDaoImpl;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -23,9 +24,9 @@ public class CadastroActivity extends AppCompatActivity {
 
         // NOT NULL CPF, LOGIN, PASSWORD, EMAIL, NIVEL
 
-
         final AlertDialog alertaNulo = new AlertDialog.Builder(this).create();
         final Usuario usuario = new Usuario();
+        final UsuarioDaoImpl usuarioImpl = new UsuarioDaoImpl(this);
 
         Button salvarB = (Button) findViewById(R.id.salvarButton);
         final EditText nomeE = (EditText) findViewById(R.id.nomeEditText);
@@ -42,6 +43,27 @@ public class CadastroActivity extends AppCompatActivity {
         salvarB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                try {
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setCpf(String.valueOf(cpfE.getText()));
+                    usuario.setLogin(String.valueOf(loginE.getText()));
+                    usuario.setPassword(String.valueOf(passwordE.getText()));
+                    usuario.setEmail(String.valueOf(emailE.getText()));
+                    usuario.setMunicipio(String.valueOf(municipioE.getText()));
+                    usuario.setEndereco(String.valueOf(enderecoE.getText()));
+                    usuario.setTelefone(String.valueOf(telefoneE.getText()));
+                    usuario.setCelular(String.valueOf(celularE.getText()));
+                    usuario.setNivel(Integer.getInteger(String.valueOf(nivelE.getText())));
+
+                    usuarioImpl.save(usuario);
+
+                    Log.d("-----------", "não foi");
+
+                }catch (Exception e){
+                    Log.d("-------------------", e.getMessage());
+                }
+                /*
                 if(String.valueOf(nomeE.getText()).equals("")){
                     camposNulos = camposNulos + "Nome ";
                 }
@@ -71,17 +93,16 @@ public class CadastroActivity extends AppCompatActivity {
                     alertaNulo.show();
                     camposNulos = "";
                 }else{
-                    /*
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    usuario.setNome(String.valueOf(nomeE.getText()));
-                    */
 
-                }
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+                    usuario.setNome(String.valueOf(nomeE.getText()));
+
+                }*/
 
             }
         });

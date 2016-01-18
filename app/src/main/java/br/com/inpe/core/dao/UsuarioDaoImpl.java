@@ -220,44 +220,56 @@ public class UsuarioDaoImpl implements UsuarioDao{
     }
 
     @Override
-    public Usuario findByIdLoginAndPassword(String login, String password) {
+    public Boolean findByIdLoginAndPassword(String login, String password) {
 
         String[] arguments = {login, password};
         String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE LOGIN = ? AND PASSWORD = ?";
 
-        try {
+        Log.d("-----------", login);
+        Log.d("-----------", password);
 
-            db = banco.getReadableDatabase();
-            if(db != null){
-                cursor = db.rawQuery(query, arguments);
 
-                if(cursor != null && cursor.getCount() != 0) {
-                    usuario = new Usuario();
+        if(!(login.equals(null) || password.equals(null))){
+            try {
 
-                    cursor.moveToFirst();
-                    usuario.setId(cursor.getLong(0));
-                    usuario.setNome(cursor.getString(1));
-                    usuario.setCpf(cursor.getString(2));
-                    usuario.setLogin(cursor.getString(3));
-                    usuario.setPassword(cursor.getString(4));
-                    usuario.setEmail(cursor.getString(5));
-                    usuario.setMunicipio(cursor.getString(6));
-                    usuario.setEndereco(cursor.getString(7));
-                    usuario.setTelefone(cursor.getString(8));
-                    usuario.setCelular(cursor.getString(9));
-                    usuario.setNivel(cursor.getInt(10));
+                db = banco.getReadableDatabase();
+                if(db != null){
+                    cursor = db.rawQuery(query, arguments);
 
+                    if(cursor != null && cursor.getCount() != 0) {
+                        usuario = new Usuario();
+
+                        cursor.moveToFirst();
+                        usuario.setId(cursor.getLong(0));
+                        usuario.setNome(cursor.getString(1));
+                        usuario.setCpf(cursor.getString(2));
+                        usuario.setLogin(cursor.getString(3));
+                        usuario.setPassword(cursor.getString(4));
+                        usuario.setEmail(cursor.getString(5));
+                        usuario.setMunicipio(cursor.getString(6));
+                        usuario.setEndereco(cursor.getString(7));
+                        usuario.setTelefone(cursor.getString(8));
+                        usuario.setCelular(cursor.getString(9));
+                        usuario.setNivel(cursor.getInt(10));
+
+                    }
+                    db.close();
+                    return true;
+                }else{
+                    return false;
                 }
 
-                db.close();
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return null;
+
             }
-            return usuario;
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
-
+        }else{
+            return false;
         }
+
+
     } //OK
 
 

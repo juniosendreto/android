@@ -54,6 +54,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Confirme seu Password"
+                android:id="@+id/passwordView2" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/passwordEditText2"
+                android:inputType="textPassword"
+                android:layout_gravity="center_horizontal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="CPF"
                 android:id="@+id/cpfView" />
 
@@ -110,6 +124,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/telefoneEditText"
+                android:inputType="phone"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -122,6 +137,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/celularEditText"
+                android:inputType="phone"
                 android:layout_gravity="center_horizontal" />
 
             <TextView

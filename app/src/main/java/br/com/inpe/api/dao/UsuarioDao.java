@@ -19,7 +19,7 @@ public interface UsuarioDao {
 
     public Usuario findById(Long id);
 
-    public Usuario findByIdLoginAndPassword(String login, String password);
+    public Boolean findByIdLoginAndPassword(String login, String password);
 
 
 }
