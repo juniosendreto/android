@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         final UsuarioDaoImpl usuarioImpl = new UsuarioDaoImpl(this);
         ImageButton imageButton =  (ImageButton) findViewById(R.id.imageButton);
-        Button button = (Button) findViewById(R.id.LogarButton);
-        final EditText loginE = (EditText) findViewById(R.id.LoginEditText);
+        Button button = (Button) findViewById(R.id.logarButton);
+        final EditText loginE = (EditText) findViewById(R.id.loginEditText);
         final EditText passwordE = (EditText) findViewById(R.id.passwordEditText);
         final TextView report =  (TextView) findViewById(R.id.report);
 
@@ -38,27 +38,16 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("------------------", "" + passwordE.getText().toString());
 
                 try {
-                    Log.d("------------------", "" + passwordE.getText().toString());
 
+                    if (usuarioImpl.findByIdLoginAndPassword(loginE.getText().toString(),
+                            passwordE.getText().toString()) == true) {
 
-                    if (usuarioImpl.findByIdLoginAndPassword(String.valueOf(loginE.getText()),
-                            String.valueOf(passwordE.getEditableText())) == true) {
-
-                        //passwordE.get
-                        Log.d("------------------", "entrei");
-
-                        //report.setVisibility(View.INVISIBLE);
-
+                        report.setVisibility(View.INVISIBLE);
                         chamarActivity(Class.forName("br.com.inpe.Activitys.TelaInicialActivity"));
-                        //Log.d("------------------", "Entrei");
-
 
                     } else {
-                        Log.d("------------------", "não entrei");
-
                         report.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
@@ -73,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     chamarActivity(Class.forName("br.com.inpe.Activitys.CadastroActivity"));
+                    report.setVisibility(View.INVISIBLE);
 
                 } catch (ClassNotFoundException e) {
                     Log.d("ERRO CHAMADA CADASTRO", e.getMessage());

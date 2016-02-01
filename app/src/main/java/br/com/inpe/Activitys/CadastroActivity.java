@@ -24,7 +24,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         // NOT NULL CPF, LOGIN, PASSWORD, EMAIL, NIVEL
 
-        final AlertDialog alertaNulo = new AlertDialog.Builder(this).create();
+        //final AlertDialog alertaNulo = new AlertDialog.Builder(this).create();
         final Usuario usuario = new Usuario();
         final UsuarioDaoImpl usuarioImpl = new UsuarioDaoImpl(this);
 
@@ -54,11 +54,9 @@ public class CadastroActivity extends AppCompatActivity {
                     usuario.setEndereco(String.valueOf(enderecoE.getText()));
                     usuario.setTelefone(String.valueOf(telefoneE.getText()));
                     usuario.setCelular(String.valueOf(celularE.getText()));
-                    usuario.setNivel(Integer.getInteger(String.valueOf(nivelE.getText())));
+                    usuario.setNivel(Integer.valueOf(nivelE.getText().toString()));
 
                     usuarioImpl.save(usuario);
-
-                    Log.d("-----------", "não foi");
 
                 }catch (Exception e){
                     Log.d("-------------------", e.getMessage());

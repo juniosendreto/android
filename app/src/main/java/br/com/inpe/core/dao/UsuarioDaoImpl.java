@@ -254,6 +254,10 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
                     }
                     db.close();
+                }else{
+                    return false;
+                }
+                if(login.equals(usuario.getLogin()) && password.equals(usuario.getPassword())){
                     return true;
                 }else{
                     return false;
@@ -261,7 +265,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
             }catch (Exception e){
                 System.out.println(e.getMessage());
-                return null;
+                return false;
 
             }
 

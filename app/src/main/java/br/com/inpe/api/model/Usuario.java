@@ -203,7 +203,7 @@ public class Usuario extends BaseModel{
                     // 1 2 3 4 5 6 7 8 9 | 10 11
                     for(int j = 0; j < 9; j++){
                         calculo = calculo + Integer.parseInt(String.valueOf(cpf.charAt(j))) * numeroMultiplicacao;
-                        Log.d("total", "------" + cpf.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
+                        //Log.d("total", "------" + cpf.charAt(j) + " " + numeroMultiplicacao + " " + calculo);
 
                         numeroMultiplicacao--;
                     }

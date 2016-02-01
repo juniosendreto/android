@@ -18,7 +18,7 @@
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/LoginEditText"
+        android:id="@+id/loginEditText"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -31,15 +31,15 @@
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:id="@+id/passwordEditText"
         android:inputType="textPassword"
-        android:id="@+id/PasswordEditText"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Entrar"
-        android:id="@+id/LogarButton"
+        android:id="@+id/logarButton"
         android:layout_gravity="center_horizontal" />
 
     <ImageButton
