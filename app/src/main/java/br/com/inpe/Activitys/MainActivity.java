@@ -16,13 +16,11 @@ import android.widget.TextView;
 
 import br.com.inpe.R;
 import br.com.inpe.api.model.Usuario;
-import br.com.inpe.api.model.Validador;
 import br.com.inpe.core.dao.UsuarioDaoImpl;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    Validador validador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
                     if (usuarioImpl.findByIdLoginAndPassword(loginE.getText().toString(),
                             passwordE.getText().toString()) == true) {
-
                         report.setVisibility(View.INVISIBLE);
-                        validador = new Validador();
+                        loginE.setText("");
+                        passwordE.setText("");
                         chamarActivity(Class.forName("br.com.inpe.Activitys.TelaInicialActivity"));
 
                     } else {

@@ -9,10 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:fillViewport="false"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="146dp"
+        android:layout_marginEnd="146dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,6 +41,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/nomeReportView"
+                android:layout_above="@id/nomeEditText"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Login"
                 android:id="@+id/loginView" />
 
@@ -47,6 +58,16 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/loginEditText"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/loginReportView"
+                android:layout_above="@id/loginEditText"
+                android:visibility="gone" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,6 +85,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/passwordReportView"
+                android:layout_above="@id/passwordEditText"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Confirme seu Password"
                 android:id="@+id/passwordView2" />
 
@@ -73,6 +103,15 @@
                 android:id="@+id/passwordEditText2"
                 android:inputType="textPassword"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/passwordReportView2"
+                android:layout_above="@id/passwordEditText2"
+                android:visibility="gone" />
 
 
             <TextView
@@ -88,6 +127,15 @@
                 android:layout_gravity="center_horizontal"
                 android:inputType="number" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/cpfReportView"
+                android:layout_above="@id/cpfEditText"
+                android:visibility="gone" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,6 +148,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/emailEditText"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/emailReportView"
+                android:layout_above="@id/emailEditText"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -163,6 +220,14 @@
                 android:id="@+id/nivelEditText"
                 android:layout_gravity="center_horizontal"
                 android:inputType="number" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#ff2b40"
+                android:id="@+id/nivelReportView"
+                android:layout_above="@id/nivelEditText"
+                android:visibility="gone" />
 
             <Button
                 android:layout_width="wrap_content"

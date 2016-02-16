@@ -55,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login ou Senha incorreto"
+        android:textColor="#ff2b40"
         android:id="@+id/report"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"/>

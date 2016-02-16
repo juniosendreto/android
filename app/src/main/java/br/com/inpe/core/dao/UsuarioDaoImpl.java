@@ -280,7 +280,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
     public Boolean findByLogin(String login) {
 
         String[] arguments = {String.valueOf(login)};
-        String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE ID = ?";
+        String query = "SELECT * FROM " + Usuario.TABLE_NAME + " WHERE LOGIN = ?";
 
         try {
 

@@ -12,27 +12,27 @@ import java.util.regex.Pattern;
 public class Validador {
 
 
-    public Boolean validarCfp(String cpf){
+    public Boolean validarCfp(String cpf) {
 
         Integer numeroMultiplicacao;
         String digito = "";
         String cpfAux = "";
 
-        for(int i = 0; i < cpf.length(); i++){
-            if(Character.isDigit(cpf.charAt(i))){
+        for (int i = 0; i < cpf.length(); i++) {
+            if (Character.isDigit(cpf.charAt(i))) {
                 cpfAux = cpfAux + cpf.charAt(i);
             }
         }
-        if(cpfAux.length() == 11){
+        if (cpfAux.length() == 11) {
 
-            for(int i = 0; i < 2; i++){
+            for (int i = 0; i < 2; i++) {
                 Integer calculo = 0;
                 Integer calculoAux = 0;
 
-                if(i == 0){
+                if (i == 0) {
                     numeroMultiplicacao = 10;
 
-                    for(int j = 0; j < 9; j++){
+                    for (int j = 0; j < 9; j++) {
                         calculo = calculo + Integer.parseInt(String.valueOf(cpf.charAt(j))) * numeroMultiplicacao;
 
                         numeroMultiplicacao--;
@@ -40,35 +40,36 @@ public class Validador {
 
                     calculoAux = 11 - (calculo % 11);
 
-                    if(calculoAux == 10 || calculoAux == 11) {
+                    if (calculoAux == 10 || calculoAux == 11) {
                         digito = "0";
-                    }else{
+                    } else {
                         digito = Integer.toString(calculoAux);
                     }
 
-                }else if(i == 1){
+                } else if (i == 1) {
                     numeroMultiplicacao = 11;
 
-                    for(int j = 0; j < 10; j++){
+                    for (int j = 0; j < 10; j++) {
                         calculo = calculo + (Integer.parseInt(String.valueOf(cpf.charAt(j))) * numeroMultiplicacao);
                         numeroMultiplicacao--;
 
                     }
                     calculoAux = 11 - (calculo % 11);
 
-                    if(calculoAux == 10 || calculoAux == 11) {
+                    if (calculoAux == 10 || calculoAux == 11) {
                         digito = digito + "0";
-                    }else{
+                    } else {
                         digito = digito + Integer.toString(calculoAux);
                     }
 
                 }
             }
+            if (digito.charAt(0) == cpfAux.charAt(9) && digito.charAt(1) == cpfAux.charAt(10)) {
+                return true;
+            } else {
+                return false;
+            }
 
-        }
-
-        if(digito.charAt(0) == cpfAux.charAt(9) && digito.charAt(1) == cpfAux.charAt(10)){
-            return true;
         }else{
             return false;
         }
