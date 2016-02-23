@@ -22,7 +22,11 @@
             android:name=".Activitys.CadastroActivity"
             android:label="@string/title_activity_cadastro"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activitys.TelaInicialActivity"></activity>
+        <activity android:name=".Activitys.TelaInicialActivity" />
+        <activity
+            android:name=".Activitys.TelaInicialactivity"
+            android:label="@string/title_activity_tela_inicialactivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
